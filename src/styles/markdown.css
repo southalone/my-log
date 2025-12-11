@@ -20,7 +20,8 @@
     }
 
     a:not(.no-styling) {
-        @apply relative bg-none link font-medium text-[var(--primary)]
+        /* Tailwind 没有内置 link 类，直接使用实用类组合 */
+        @apply relative bg-none font-medium text-[var(--primary)]
         underline decoration-[var(--link-underline)] decoration-1 decoration-dashed underline-offset-4;
         box-decoration-break: clone;
         -webkit-box-decoration-break: clone;
