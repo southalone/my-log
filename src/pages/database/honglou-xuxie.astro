@@ -1,6 +1,5 @@
 ---
 import DatabaseCard from "@components/DatabaseCard.astro";
-import Markdown from "@components/misc/Markdown.astro";
 import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { url } from "@utils/url-utils";
 import { getXuxieChapters } from "../../database/xuxie-chapters";
@@ -29,6 +28,7 @@ const models = Array.from(byModelCount.keys()).sort((a, b) =>
 						<DatabaseCard
 							title={m}
 							url={url(`/database/honglou-xuxie/${m}/`)}
+							description="进入该模型的续写内容（按每回展开）"
 							meta={`${byModelCount.get(m) || 0} 回`}
 							icon="material-symbols:smart-toy-outline"
 						/>
