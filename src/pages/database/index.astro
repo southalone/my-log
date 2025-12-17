@@ -1,0 +1,34 @@
+---
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import Markdown from "@components/misc/Markdown.astro";
+import DatabaseCard from "@components/DatabaseCard.astro";
+import { getXuxieChapters } from "../../database/xuxie-chapters";
+import { abExcerpts } from "../../database/ab-excerpts";
+import { url } from "@utils/url-utils";
+
+const chapters = getXuxieChapters();
+const models = Array.from(new Set(chapters.map((c) => c.model))).sort((a, b) => a.localeCompare(b));
+---
+
+<MainGridLayout title="数据库" description="项目数据入口（像文章一样浏览）">
+
+	<div class="mt-4 grid grid-cols-1 gap-4">
+		<DatabaseCard
+			title="红楼梦续写模型数据"
+			url={url("/database/honglou-xuxie/")}
+			description="按：模型 → 回目（每回单独存放）浏览所有续写内容。"
+			meta={`${models.length} 个模型 · ${chapters.length} 回`}
+			icon="material-symbols:book-2-outline"
+		/>
+
+		<DatabaseCard
+			title="A/B 盲测段落库"
+			url={url("/database/ab-excerpts/")}
+			description="供《红楼梦》评测报告 report 的 A/B 盲测随机抽取段落（来源：best_chapters）。"
+			meta={`${abExcerpts.length} 段`}
+			icon="material-symbols:compare-arrows-rounded"
+		/>
+	</div>
+</MainGridLayout>
+
+

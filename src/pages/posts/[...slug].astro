@@ -14,6 +14,7 @@ import PostMetadata from "../../components/PostMeta.astro";
 import { profileConfig, siteConfig } from "../../config";
 import { formatDateToYYYYMMDD } from "../../utils/date-utils";
 import { abExcerpts } from "../../database/ab-excerpts";
+import { getEvalDimAvgs } from "../../database/eval-dim-avgs";
 
 export async function getStaticPaths() {
 	const blogEntries = await getSortedPosts();
@@ -27,6 +28,7 @@ const { entry } = Astro.props;
 const { Content, headings } = await entry.render();
 
 const { remarkPluginFrontmatter } = await entry.render();
+const evalDimAvgs = entry.slug === "report" ? getEvalDimAvgs() : [];
 
 const jsonLd = {
 	"@context": "https://schema.org",
@@ -52,10 +54,12 @@ const jsonLd = {
 		<script
 			is:inline
 			slot="head"
-			define:vars={{ abExcerpts }}
+			define:vars={{ abExcerpts, evalDimAvgs }}
 		>
 			// @ts-ignore
 			window.__AB_EXCERPTS__ = abExcerpts;
+			// @ts-ignore
+			window.__EVAL_DIM_AVGS__ = evalDimAvgs;
 		</script>
 	)}
     <div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative mb-4">

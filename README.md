@@ -40,7 +40,8 @@
   - **分页首页/列表**：`src/pages/[...page].astro`
   - **归档**：`src/pages/archive.astro`
   - **关于**：`src/pages/about.astro`
-  - **数据库页面**：`src/pages/database.astro`（本项目新增）
+  - **数据库首页**：`src/pages/database/index.astro`（项目入口卡片）
+  - **数据库子页面**：`src/pages/database/*`（每个项目一页）
   - **RSS 接口**：`src/pages/rss.xml.ts`
   - **robots.txt 接口**：`src/pages/robots.txt.ts`
 - **组件**：`src/components/`
@@ -106,9 +107,10 @@ lang: '' # 仅在文章语言与站点默认语言不同才需要写
     - `k`：唯一 key
     - `m`：模型名（用于“揭晓”）
     - `t`：展示给读者的段落文本
-- **数据库展示页面**：`src/pages/database.astro`
-  - 路由：`/database/`
-  - 作用：把 `abExcerpts` 以表格形式展示，便于校对与维护
+- **数据库页面**：
+  - **数据库首页**：`src/pages/database/index.astro`（路由：`/database/`，只显示项目入口卡片）
+  - **红楼梦续写模型数据**：`src/pages/database/honglou-xuxie.astro`（路由：`/database/honglou-xuxie/`）
+  - **A/B 盲测段落库**：`src/pages/database/ab-excerpts.astro`（路由：`/database/ab-excerpts/`）
 
 ### A/B 盲测投票（红楼梦报告那篇）
 
@@ -120,6 +122,12 @@ lang: '' # 仅在文章语言与站点默认语言不同才需要写
     - A/B 强制来自不同模型（`m` 不相同）
 - **段落库注入到页面**：`src/pages/posts/[...slug].astro`
   - 对 `entry.slug === "report"` 时，会注入 `window.__AB_EXCERPTS__`
+
+### 续写章节库（每回存放）
+
+- **数据来源**：项目根目录上一级目录的 `续写内容_模型名/`（例如：`../续写内容_gpt-5/`）
+- **加载逻辑**：`src/database/xuxie-chapters.ts`
+- **展示页面**：`/database/honglou-xuxie/`
 
 ### 复用到其他文章（不止红楼梦）
 

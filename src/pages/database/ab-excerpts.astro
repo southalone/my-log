@@ -1,0 +1,65 @@
+---
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import Markdown from "@components/misc/Markdown.astro";
+import { abExcerpts } from "../../database/ab-excerpts";
+
+const byModel = new Map<string, typeof abExcerpts>();
+for (const x of abExcerpts) {
+	const arr = byModel.get(x.m) || [];
+	arr.push(x);
+	byModel.set(x.m, arr);
+}
+const models = Array.from(byModel.keys()).sort((a, b) => a.localeCompare(b));
+---
+
+<MainGridLayout title="A/B 盲测段落库" description="用于 report 的 A/B 随机对比（来源：best_chapters）">
+	<div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+		<div class="card-base z-10 px-6 md:px-9 py-6 relative w-full">
+			<Markdown class="mt-2">
+				<p>本页展示 A/B 盲测段落库（供 <code>posts/report</code> 的脚本随机抽取）。</p>
+				<p class="opacity-80">数据从项目根目录上一级目录的 <code>best_chapters</code> 自动抽取生成（见 <code>src/database/ab-excerpts.ts</code>）。</p>
+			</Markdown>
+
+			{abExcerpts.length === 0 ? (
+				<div class="mt-4 text-sm opacity-80">
+					当前段落库为空。请确认 <code>../best_chapters</code> 目录存在且包含 <code>*.txt</code> 文件。
+				</div>
+			) : (
+				<div class="mt-6">
+					<details open>
+						<summary class="cursor-pointer select-none font-bold text-lg">
+							段落库
+							<span class="ml-2 text-sm opacity-70">（{abExcerpts.length} 段，{models.length} 个模型）</span>
+						</summary>
+
+						<div class="mt-3 space-y-3">
+							{models.map((m) => {
+								const items = (byModel.get(m) || []).slice().sort((a, b) => a.k.localeCompare(b.k));
+								return (
+									<details>
+										<summary class="cursor-pointer select-none font-bold">
+											{m}
+											<span class="ml-2 text-sm opacity-70">（{items.length} 段）</span>
+										</summary>
+										<div class="mt-2 space-y-2">
+											{items.map((x) => (
+												<details>
+													<summary class="cursor-pointer select-none opacity-90">{x.k}</summary>
+													<blockquote class="mt-2 border-l-4 border-[var(--line-divider)] pl-4 opacity-95">
+														{x.t}
+													</blockquote>
+												</details>
+											))}
+										</div>
+									</details>
+								);
+							})}
+						</div>
+					</details>
+				</div>
+			)}
+		</div>
+	</div>
+</MainGridLayout>
+
+

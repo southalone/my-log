@@ -1,0 +1,48 @@
+---
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import Markdown from "@components/misc/Markdown.astro";
+import { getXuxieChapters } from "../../../database/xuxie-chapters";
+
+export async function getStaticPaths() {
+	const chapters = getXuxieChapters();
+	const models = Array.from(new Set(chapters.map((c) => c.model))).sort((a, b) => a.localeCompare(b));
+	return models.map((model) => ({ params: { model }, props: { model } }));
+}
+
+const { model } = Astro.props as { model: string };
+const chaptersAll = getXuxieChapters();
+const chapters = chaptersAll
+	.filter((c) => c.model === model)
+	.slice()
+	.sort((a, b) => a.chapter - b.chapter);
+---
+
+<MainGridLayout title={model} description="红楼梦续写 · 按每回展开">
+	<div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+		<div class="card-base z-10 px-6 md:px-9 py-6 relative w-full">
+			<Markdown class="mt-2">
+				<p>该页面展示 <code>{model}</code> 的续写内容（按每回存放）。</p>
+				<p class="opacity-80">提示：点击回目可展开全文。</p>
+			</Markdown>
+
+			{chapters.length === 0 ? (
+				<div class="mt-4 text-sm opacity-80">未找到该模型的章节数据。</div>
+			) : (
+				<div class="mt-6 space-y-2">
+					{chapters.map((x) => (
+						<details>
+							<summary class="cursor-pointer select-none">
+								<span class="font-bold">第{x.chapter}回</span>
+								<span class="ml-2 opacity-80">{x.title}</span>
+								{x.excerpt && <span class="ml-2 text-sm opacity-70">— {x.excerpt}</span>}
+							</summary>
+							<pre class="mt-2 whitespace-pre-wrap text-sm leading-6">{x.text}</pre>
+						</details>
+					))}
+				</div>
+			)}
+		</div>
+	</div>
+</MainGridLayout>
+
+

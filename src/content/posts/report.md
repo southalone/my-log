@@ -3,42 +3,53 @@ title: 《红楼梦》续写模型评测报告
 published: 2025-12-15
 description: ''
 image: ''
-tags: [llm]
-category: '文章'
+tags: [LLM,Creation,Logic]
+category: 'benchmark'
 draft: false 
 lang: ''
 ---
 
+## 引子：为什么要让模型续写《红楼梦》？
+
+这件事的起点其实很“日常”：有个同学在做北大计概的期末作业，题目刚好就是红楼梦续写，她问我能不能帮忙一起把流程跑通、把结果整理得更像一份正经报告。于是我顺手接下了这活——从“能不能跑起来”，一路跑到了“到底谁写得更像曹雪芹”。  
+
+更关键的是，我自己也一直好奇：**LLM 续写《红楼梦》会写成什么样？**它能不能抓住那种“冷眼旁观”的叙事气质、人物口吻的微妙差别、以及诗性意象背后的暗线？还是会一不小心写成现代网文、历史正剧，甚至变成“谍战/玄幻/爽文”？  
+
+所以这篇报告就变成了一次小型实验：我让不同模型在同一套设定下续写若干回目，用同一套维度让模型去打分、对比、复盘，并做了一个读者盲测的 A/B 片段对比。下面就是结果。
+
 ## 总体概览
 
 - 总模型数：8  
-- 评分范围：2.36 - 8.47  
-- 最高单章：gemini-3-pro-preview（10.00）  
-- 最优模型（平均分）：gemini-3-pro-preview（8.47），其文风、人物一致性、语言质量、文学性四维均为当前最佳。
-
+- 评分范围：2.30 - 5.01  
+- 最高单章：qwen-max（7.45）  
+- 最优模型（平均分）：kimi-k2（5.01）
 
 ## 关键数据表
 
 | 模型 | 平均分 | 最高分 | 最低分 | 章节数 |
 | --- | --- | --- | --- | --- |
-| gemini-3-pro-preview | 8.47 | 10.00 | 7.15 | 10 |
-| doubao-seed-1-6-251015 | 7.40 | 8.60 | 5.70 | 11 |
-| kimi-k2 | 5.01 | 7.15 | 3.10 | 40 |
+| kimi-k2 <span class="report-tag-best">最优</span> | <span class="report-cell-high">5.01</span> | 7.15 | 3.10 | 40 |
 | gpt-5 | 4.83 | 6.65 | 2.75 | 40 |
+| gemini-3-pro-preview | 4.79 | 6.70 | 2.60 | 40 |
 | deepseek-v3 | 4.52 | 6.15 | 3.30 | 19 |
-| qwen-max | 4.50 | 7.45 | 3.10 | 40 |
+| qwen-max | 4.50 | <span class="report-cell-high">7.45</span> | 3.10 | 40 |
 | grok-4.1 | 3.52 | 5.20 | 1.75 | 40 |
-| claude-haiku-4-5-20251001 | 2.36 | 3.40 | 0.60 | 40 |
+| doubao-seed-1-6-251015 | 3.18 | 4.15 | 1.65 | 15 |
+| claude-haiku-4-5-20251001 | <span class="report-cell-low">2.30</span> | 3.40 | <span class="report-cell-low">0.00</span> | 40 |
 
-## 读者盲测投票：A/B 匿名续写对比（投票后揭晓模型）
+<style>
+.report-cell-high{font-weight:700;color:color-mix(in oklab, var(--primary, #2563eb) 85%, black)}
+.report-cell-low{font-weight:700;color:color-mix(in oklab, #ef4444 85%, black)}
+.report-tag-best{display:inline-block;margin-left:.35rem;padding:.08rem .45rem;border-radius:999px;font-size:.82em;line-height:1.2;border:1px solid color-mix(in oklab, var(--primary, #2563eb) 40%, var(--line-divider));background:color-mix(in oklab, var(--primary, #2563eb) 14%, transparent);color:color-mix(in oklab, var(--primary, #2563eb) 85%, black);font-weight:700;vertical-align:baseline}
+</style>
 
-为减少“先入为主”的模型偏见，补充一个**读者盲测**：我从不同模型的续写里各截取一段（长度尽量一致），做匿名化处理，仅以 **“A 段 / B 段”** 展示。欢迎你在评论区投票：
+## 读者盲测投票：
+
+为减少“先入为主”的模型偏见，补充一个**读者盲测**：我从不同模型的续写里各截取一段，做匿名化处理，仅以 **“A 段 / B 段”** 展示。欢迎你在评论区投票：
 
 - **问题 1**：你觉得哪一段**写得更好**？（A / B / 难分高下）
 - **问题 2**：你觉得哪一段**更像《红楼梦》原文气质**？（A / B / 都不像 / 难分）
-- **可选说明**：你投票的理由（比如：语言古雅度、人物口吻、意象与节奏、叙事“冷眼旁观”程度、是否出现现代语感等）
 
-> 说明：以下文字仅作盲测对比展示；已隐去模型名与回目等信息。你需要先完成选择，页面才会显示“对应模型揭晓”（纯前端交互）。
 
 <div class="ab-compare-grid" data-blindvote-id="report-ab-1" role="group" aria-label="A/B 匿名续写对比（点击选择）">
   <section class="ab-compare-card" data-choice="A" tabindex="0" aria-label="A 段（匿名，点击选择）">
@@ -70,7 +81,7 @@ lang: ''
   <div class="blindvote__status" aria-live="polite">
     <div class="blindvote__status-row"><strong>问题 1</strong>（写得更好）：<span data-slot="q1">未选择</span></div>
     <div class="blindvote__status-row"><strong>问题 2</strong>（更像红楼梦）：<span data-slot="q2">未选择</span></div>
-    <div class="blindvote__howto">操作：先点一次 A/B 选择问题 1，再点一次 A/B 选择问题 2（都选完会自动揭晓）。要重来点 <a href="javascript:void(0)" data-action="reset">重置</a>。</div>
+    <div class="blindvote__howto">操作：先点一次 A/B 选择问题 1，再点一次 A/B 选择问题 2（都选完会自动揭晓）。要重来请点 <a href="javascript:void(0)" data-action="reset">重置</a>。</div>
   </div>
 
   <div class="blindvote__reveal" hidden aria-live="polite"></div>
@@ -362,7 +373,7 @@ lang: ''
 
 ## 分数最高章节全文
 
-已收录当前可用的最高分章节原文，内容较长已提供滚动。
+已收录当前可用的最高分章节原文。
 
 <details>
 <summary>qwen-max · 第90回《尤氏理丧宁国府　贾珍惧罪焚账册》</summary>
@@ -792,77 +803,309 @@ lang: ''
 更兼着连天衰草遮坟墓，这的是昨贫今富人劳碌，
 春荣秋谢花折磨。
 </details>
-## 报告正文节选
 
-摘录自《续写模型性能分析报告.txt》前半部分，便于网页内快速浏览。
+## 各模型风趣点评（基于评测结果）
+
+（以下点评仅对应本次评测口径：文风/人物/语言/文学性四维加权。）
+
+- **kimi-k2（总评 5.01 / 最高 7.15 / 最低 3.10）**：
+  - **优点**：语言质量几乎是“行文自带抛光”（语言维度均分 7.45），读起来最顺口。
+  - **槽点**：文风与文学性偶尔会“差一口古气”（文风 4.48 / 文学性 4.53），像是穿着合身但料子不够老。
+  - **一句话**：更像“写得很会写”，但还没到“像曹公那样写”。
+
+- **gpt-5（总评 4.83 / 最高 6.65 / 最低 2.75）**：
+  - **优点**：四维比较均衡（文风 4.65 / 人物 4.58 / 文学性 4.70），不太会突然崩坏。
+  - **槽点**：语言维度不算顶尖（5.60），偶有“写得认真，但还不够‘红楼味’的香气”。
+  - **一句话**：像一个功课做得很全的同学——不花，但靠谱。
+
+- **gemini-3-pro-preview（总评 4.79 / 最高 6.70 / 最低 2.60）**：
+  - **优点**：人物一致性相对突出（4.90），角色说话更像“同一个人持续活着”。
+  - **槽点**：文学性偏保守（4.03），有时像“把故事讲清楚了，但没把那口‘冷香’点出来”。
+  - **一句话**：像个稳健编辑：人物线不乱，意境线还可以更敢写一点。
+
+- **deepseek-v3（总评 4.52 / 最高 6.15 / 最低 3.30）**：
+  - **优点**：语言稳定（6.63），下限很稳（最低 3.30），不太“翻车”。
+  - **槽点**：文风与文学性略朴（文风 3.63 / 文学性 3.63），像“把剧情端上来了，但摆盘不够古典”。
+  - **一句话**：像一口老锅炖汤——味道稳定，但香料下得偏克制。
+
+- **qwen-max（总评 4.50 / 最高 7.45 / 最低 3.10）**：
+  - **优点**：能打出全场最高单章（7.45），状态在线时“文气上头”。
+  - **槽点**：波动感更强：同样写得顺，但“红楼的含蓄与留白”不总能保住（文风 3.95 / 文学性 3.98）。
+  - **一句话**：像灵感型选手——来感觉时很惊艳，不来感觉时就回到工业流水线。
+
+- **grok-4.1（总评 3.52 / 最高 5.20 / 最低 1.75）**：
+  - **优点**：语言还能打（5.45），偶尔也能写出一段挺“有戏”的场面。
+  - **槽点**：人物一致性是明显短板（2.73），角色有时像“换了号登录”。
+  - **一句话**：像演员即兴：台词顺，但人物设定容易跑偏。
+
+- **doubao-seed-1-6-251015（总评 3.18 / 最高 4.15 / 最低 1.65）**：
+  - **优点**：语言维度不算最差（4.80），至少能把句子写通顺。
+  - **槽点**：文风与文学性偏现代（文风 2.67 / 文学性 2.73），最容易让人“出戏”。
+  - **一句话**：像把《红楼梦》当作文体练习题——答得出来，但不太像原卷。
+
+- **claude-haiku-4-5-20251001（总评 2.30 / 最高 3.40 / 最低 0.00）**：
+  - **优点**：偶尔也能写出“像样的段落”（最高 3.40），但需要碰运气。
+  - **槽点**：人物与文学性都偏弱（人物 1.75 / 文学性 1.68），更像“提纲挈领”而非“入戏入境”。
+  - **一句话**：像速记本：信息有，但红楼那层“情与气”很难沉下来。
+
+## 原文趣句摘录
+
+- **kimi-k2 · 第102回《贾政病危叹家世衰 惜春带发终了禅缘》**
+
+> “谱上无名，方是真名；血里无字，方是真字。”
+>
+> “羽落还生，鸦啼自啼，何兆之有？”
+
+*吐槽：这位属于“金句型选手”——一句话像在你额头上刻碑，刻完还很平静。*
+
+- **gpt-5 · 第100回《凤姐遗计护幼女　檀纸密书寄风尘》**
+
+> “且你不是出人，是出经。”
+>
+> “你们这些怪话，倒像戏文。”
+
+*吐槽：稳得像工作汇报，但也会突然甩你一句“妙啊”，像在 PPT 里夹了把匕首。*
+
+- **gemini-3-pro-preview · 第83回《省宫闱贾元春染恙　闹闺阃薛宝钗吞声》**
+
+> “这病不在身上，而在心上。”
+>
+> “梦见咱们家的大观园里，百花凋零，一片白茫茫大地真干净。”
+
+*吐槽：文案部出身的预言家——刀子不急着捅，先把氛围灯调到“末世灰”。*
+
+- **deepseek-v3 · 第82回《探春远嫁辞故园　凤姐病重托孤女》**
+
+> “窗外小丫头子嘀咕：‘宝二爷又魔怔了，搂着沁芳亭的柱子喊紫鹃姐姐呢。’”
+>
+> “王夫人隔着重纱屏风听得真切……倒似洇开一滩血渍。”
+
+*吐槽：细节写得很狠——属于“你笑了一下，下一秒就给你把心情摁进墨水里”的那种。*
+
+- **qwen-max · 第90回《尤氏理丧宁国府　贾珍惧罪焚账册》**
+
+> “好个宁国府！白日做丧事，夜里烧罪证！哄得了谁？哄得了阎王爷么？”
+>
+> “好白的纸！比我的手帕还软！”
+
+*吐槽：戏台子搭得快，梗也来得快——一边骂得像说书人，一边天真得像弹幕小鬼。*
+
+- **grok-4.1 · 第111回《鸳鸯女殉葬明义烈　狗彘奴同类可禽兽》**
+
+> “这狗肉鲜嫩，胜似府中鸡鸭。”
+>
+> “坏奴才如狗，偷肉打架慌。”
+
+*吐槽：嘴是真的碎，骂也是真的狠——像把“道德批判”当成一锅大杂烩端上来，热气腾腾。*
+
+- **doubao-seed-1-6-251015 · 第81回《惜春悟静辞繁宇　宝玉伤玉入梦魂》**
+
+> “那玉是活的，它走了就是不要我了！”
+>
+> “情字最伤人。”
+
+*吐槽：情绪给得很足，但古味给得很少——像把红楼人物塞进了现代短视频配音区。*
+
+- **claude-haiku-4-5-20251001 · 第81回《惜春悟静辞繁宇　宝玉伤玉入梦魂》**
+
+> “我厌倦了。”
+>
+> “我不过是府中的一个附属品罢了，一个可有可无的人物。”
+
+*吐槽：这位像“冷脸写自述”——刀不花哨，但每一刀都落在“人间不值得”的位置上。*
+
+## 续写流程与 Prompt
+
+
+【输入】
+→《红楼梦》前 80 回情节摘要（作为共同起点）
+→续写目标：第 81–120 回（章回体、对仗回目、整体悲剧走向）
+
+【阶段 A：先定“路线图”】【让续写不乱跑】
+→为每一回先写“回目 + 场景/人物 + 关键事件 + 情绪与伏笔”的大纲
+→（可选）为每回再写一段较详细的故事梗概，确保逻辑连贯
+
+【阶段 B：逐回写正文】【每回都要自洽】
+→读取：上一回的“简短总结” + 本回大纲
+→生成本回正文（章回体结构，细节描写充分）
+→校验：篇幅不足或细节偏少则补写/重写（直到达到目标篇幅与完成度）
+
+【阶段 C：滚动记忆】【让下一回接得上】
+→把“本回正文”压缩成一段不太长的总结
+→把这段总结作为下一回的“上一回情节”
+
+【输出】
+→按模型分目录保存：每回一份正文（第 81–120 回）
+
+【Prompt 要点】
+**System Prompt**
 
 ```
-================================================================================
-《红楼梦》续写模型性能分析报告
-================================================================================
+扮演一位熟知清代古典小说艺术和叙事风格的专业文学作家。
 
-一、各模型续写内容分数最高的一回
---------------------------------------------------------------------------------
-
-1. gemini-3-pro-preview
-   回目：第83回 省宫闱贾元春染恙　闹闺阃薛宝钗吞声
-   加权平均分：10.00
-   各维度分数：
-     - 文风契合度：10
-     - 人物一致性：10
-     - 语言质量：10
-     - 文学性：10
-   综合评价：该续写内容在文风、情节、人物、语言及文学性上均高度贴合《红楼梦》原著水准。回目对仗工整，遣词古雅，叙事节奏从容舒缓，精准把握了原著的悲剧氛围。情节上紧密呼应前80回伏笔，如元春染病呼应判词‘虎兕相逢大梦归’，夏金桂闹家暗合薛家败落的趋势。人物刻画精准，宝钗的隐忍冷静、元春的忧虑无奈、夏金桂的骄悍泼辣均与原著设定一致，语言符合身份特征。意象营造如‘宫柳枯黄’‘朱红宫门似血’等，象征隐喻如元春命运与家...
-
-2. doubao-seed-1-6-251015
-   回目：第81回 惜春悟静辞繁宇　宝玉伤玉入梦魂
-   加权平均分：8.60
-   各维度分数：
-     - 文风契合度：9
-     - 人物一致性：9
-     - 语言质量：9
-     - 文学性：8
-   综合评价：该续写在文风、人物塑造和意象营造方面表现优异，基本延续了《红楼梦》的风格与气质。遣词造句古雅，叙事节奏舒缓，具备曹雪芹式的文学韵味。惜春出家、宝玉失玉等情节设计合理文的人物命运和伏笔，体现了对原著精神的理解。然而，在人物语言和部分情节处理上略显刻意，个别细节缺乏足够的内在逻辑支撑，如宝玉梦境的描写稍显冗长，人物情感变化缺乏足够铺垫。整体而言，是一部较为出色的续写作品，虽有瑕疵，但仍具较高文学价值。
-
-3. qwen-max
-   回目：第90回 尤氏理丧宁国府　贾珍惧罪焚账册
-   加权平均分：7.45
-   各维度分数：
-     - 文风契合度：7
-     - 人物一致性：8
-     - 语言质量：8
-     - 文学性：7
-   综合评价：此篇续写文字功底扎实，流畅度极佳，尤氏心理描写细腻，‘鬓边萎花’之喻颇得红楼神韵。然若以曹公原笔为尺，则显露多处硬伤。首要问题在于‘词汇时代感’与‘叙事直露’。文中出现‘高利贷’、‘孤证’等词，乃明显现代语汇，瞬间破坏古典氛围；‘锦衣卫’一词虽古，然《红楼梦》向来模糊朝代，多用‘龙禁尉’或‘有司’，此词过于坐实明朝背景，与原著‘无朝代可考’之旨相悖。叙事上，作者介入过多，如‘此乃愚夫自保之策’等评...
-
-4. kimi-k2
-   回目：第102回 贾政病危叹家世衰 惜春带发终了禅缘
-   加权平均分：7.15
-   各维度分数：
-     - 文风契合度：6
-     - 人物一致性：8
-     - 语言质量：8.0
-     - 文学性：7
-   综合评价：此续写在情节构思上颇具匠心，尤其是贾政查阅家谱一节，悲剧张力极强，惜春之冷亦刻画入骨。然而，若以曹雪芹原笔为尺，此作在文风与意境上仍有明显硬伤。最大的败笔在于叙述语言中夹杂了明显的现代抒情散文笔调，如“冻结在时光深处”、“家难史”等措辞，瞬间破坏了古典小说的沉浸感，显得不伦不类。此外，结尾处墨梅“年年花开”的超自然描写，流于《聊斋》式的志怪传奇，偏离了《红楼梦》“真事隐去”的现实主义悲剧基调。贾政...
-
-5. gpt-5
-   回目：第100回 凤姐遗计护幼女　檀纸密书寄风尘
-   加权平均分：6.65
-   各维度分数：
-     - 文风契合度：6
-     - 人物一致性：7
-     - 语言质量：8
-     - 文学性：6
-   综合评价：此续写在文字功底上颇为老练，开篇对冬日萧索、家族衰败的氛围营造极佳，寒气逼人，几近原作风貌。贾琏的懦弱推诿、平儿的忠诚隐忍、凤姐的病态强撑，在神态描写上均十分到位。然而，作品在情节设计上犯了严重的风格错误，将《红楼梦》的世情悲剧异化为‘武侠传奇’或‘谍战悬疑’。文中出现的‘簪中暗藏弹簧’、‘火烤隐字符’、‘江湖切口（暗号）’等元素，虽显巧思，却完全背离了曹雪芹的现实主义笔法。王熙凤的‘谋’应在于人...
-
+文风要求：必须模仿曹雪芹《红楼梦》的笔法：语言典雅、叙事细腻、节奏舒缓、情感含蓄、细节丰富。不得使用现代化语言。
+修辞要求：善用诗词、谶语、比喻、典故，保持人物对话的各自特色。
+结构要求：保持章回体小说的传统结构，回目使用双句对仗格式，正文自然展开叙事。
 ```
+
+→身份：把模型“钉死”在古典章回体写作者身份上
+→风格：语言古雅、叙事细腻、情绪含蓄；避免现代口语与现代概念
+→结构：回目对仗、场景推进自然、常以韵语/诗句收束
+→约束：关键事件与人物走向必须服从大纲；通过细节描写自然支撑长篇幅
+
 ## 核心图表
 
-![各模型平均分对比](public/charts/各模型平均分对比.png)
-![各模型最高分对比](public/charts/各模型最高分对比.png)
-![各模型各维度平均分对比](public/charts/各模型各维度平均分对比.png)
-![前5名模型雷达图](public/charts/前5名模型雷达图.png)
-![各模型分数范围对比（最高/平均/最低）](public/charts/各模型分数范围对比.png)
-![各模型综合对比（分数 + 章节数）](public/charts/各模型综合对比.png)
+<div id="dim-chart" class="dim-chart" aria-label="各模型各维度平均分对比（可悬停查看数值）"></div>
+
+<noscript>
+<img alt="各模型各维度平均分对比" src="public/charts/各模型各维度平均分对比.png" />
+</noscript>
+
+<style>
+.dim-chart { margin: 1rem 0; }
+.dim-chart__tooltip{
+  position: fixed; z-index: 50;
+  padding: .4rem .55rem;
+  border-radius: .6rem;
+  border: 1px solid var(--line-divider);
+  background: color-mix(in oklab, var(--card-bg, white) 92%, transparent);
+  box-shadow: 0 10px 30px rgba(0,0,0,.08);
+  font-size: 12px;
+  pointer-events: none;
+  transform: translate(12px, 12px);
+  white-space: nowrap;
+}
+</style>
+
+<script>
+(function () {
+  const root = document.getElementById("dim-chart");
+  if (!root) return;
+  // @ts-ignore
+  const rows = Array.isArray(window.__EVAL_DIM_AVGS__) ? window.__EVAL_DIM_AVGS__ : null;
+  if (!rows || rows.length === 0) {
+    root.innerHTML = '<div style="opacity:.75;font-size:14px">未找到评测数据，已回退为静态图。</div>';
+    return;
+  }
+
+  const DIM_KEYS = ["文风契合度", "人物一致性", "语言质量", "文学性"];
+  const COLORS = ["#ff6b6b", "#4ecdc4", "#45b7d1", "#ffb685"];
+  const W = 980, H = 430;
+  const P = { l: 56, r: 18, t: 34, b: 130 };
+  const chartW = W - P.l - P.r;
+  const chartH = H - P.t - P.b;
+  const maxY = 10;
+
+  const svgNS = "http://www.w3.org/2000/svg";
+  const svg = document.createElementNS(svgNS, "svg");
+  svg.setAttribute("viewBox", `0 0 ${W} ${H}`);
+  svg.setAttribute("width", "100%");
+  svg.setAttribute("height", "auto");
+  svg.style.maxWidth = "100%";
+
+  function el(name, attrs) {
+    const n = document.createElementNS(svgNS, name);
+    if (attrs) for (const k in attrs) n.setAttribute(k, attrs[k]);
+    return n;
+  }
+  function yToPx(v) { return P.t + (1 - v / maxY) * chartH; }
+
+  // 标题
+  const title = el("text", { x: String(W/2), y: "22", "text-anchor": "middle", "font-size": "18", "font-weight": "700" });
+  title.textContent = "各模型各维度平均分对比";
+  svg.appendChild(title);
+
+  // 网格线
+  for (let y = 0; y <= 10; y += 2) {
+    const yy = yToPx(y);
+    svg.appendChild(el("line", { x1: String(P.l), y1: String(yy), x2: String(W - P.r), y2: String(yy), stroke: "rgba(0,0,0,0.08)" }));
+    const lab = el("text", { x: String(P.l - 10), y: String(yy + 4), "text-anchor": "end", "font-size": "12", fill: "rgba(0,0,0,0.55)" });
+    lab.textContent = String(y);
+    svg.appendChild(lab);
+  }
+
+  // tooltip
+  const tip = document.createElement("div");
+  tip.className = "dim-chart__tooltip";
+  tip.hidden = true;
+  document.body.appendChild(tip);
+  function showTip(e, text) {
+    tip.textContent = text;
+    tip.hidden = false;
+    tip.style.left = e.clientX + "px";
+    tip.style.top = e.clientY + "px";
+  }
+  function hideTip() { tip.hidden = true; }
+
+  // 柱子
+  const n = rows.length;
+  const groupW = chartW / n;
+  const barW = Math.min(26, (groupW - 18) / DIM_KEYS.length);
+  const gap = 6;
+
+  function splitLabel(s) {
+    const str = String(s || "");
+    if (str.length <= 14) return [str];
+    // 尝试按 '-' 分两行（更像模型名的自然断点）
+    const parts = str.split("-");
+    if (parts.length >= 3) {
+      const mid = Math.ceil(parts.length / 2);
+      return [parts.slice(0, mid).join("-"), parts.slice(mid).join("-")];
+    }
+    // fallback：按字符数硬切
+    const cut = Math.ceil(str.length / 2);
+    return [str.slice(0, cut), str.slice(cut)];
+  }
+
+  rows.forEach((r, i) => {
+    const gx = P.l + i * groupW + 8;
+    DIM_KEYS.forEach((k, di) => {
+      const v = Number(r.dims?.[k] ?? 0);
+      const h = (v / maxY) * chartH;
+      const x = gx + di * (barW + gap);
+      const y = P.t + chartH - h;
+      const rect = el("rect", { x: String(x), y: String(y), width: String(barW), height: String(h), rx: "4", fill: COLORS[di], opacity: "0.86" });
+      rect.addEventListener("mousemove", (e) => showTip(e, `${r.model} · ${k}：${v.toFixed(2)}`));
+      rect.addEventListener("mouseleave", hideTip);
+      // 原生 tooltip（双保险）
+      const t = el("title");
+      t.textContent = `${r.model} · ${k}：${v.toFixed(2)}`;
+      rect.appendChild(t);
+      svg.appendChild(rect);
+    });
+
+    // x 轴标签（不倾斜，自动分行）
+    const cx = gx + (DIM_KEYS.length * (barW + gap) - gap) / 2;
+    const lines = splitLabel(r.model);
+    const lab = el("text", {
+      x: String(cx),
+      y: String(H - 62),
+      "text-anchor": "middle",
+      "font-size": "12",
+      fill: "rgba(0,0,0,0.7)"
+    });
+    lines.forEach((line, idx) => {
+      const tspan = el("tspan", { x: String(cx), dy: idx === 0 ? "0" : "14" });
+      tspan.textContent = line;
+      lab.appendChild(tspan);
+    });
+    svg.appendChild(lab);
+  });
+
+  // 图例
+  DIM_KEYS.forEach((k, i) => {
+    const lx = P.l + i * 120;
+    const ly = H - 16;
+    svg.appendChild(el("rect", { x: String(lx), y: String(ly - 10), width: "12", height: "12", rx: "3", fill: COLORS[i], opacity: "0.86" }));
+    const lt = el("text", { x: String(lx + 18), y: String(ly), "font-size": "12", fill: "rgba(0,0,0,0.7)" });
+    lt.textContent = k;
+    svg.appendChild(lt);
+  });
+
+  root.innerHTML = "";
+  root.appendChild(svg);
+})();
+</script>
 
 
 
