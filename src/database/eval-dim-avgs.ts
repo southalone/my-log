@@ -31,8 +31,8 @@ function safeNumber(x: unknown) {
 export function getEvalDimAvgs(): EvalDimAvgs[] {
 	try {
 		const projectRoot = getProjectRootDir();
-		// 评测 JSON 放在项目根目录的上一级目录：Desktop/大四上
-		const base = path.resolve(projectRoot, "..");
+		// 评测 JSON 放在仓库内：my-log/data/eval
+		const base = path.join(projectRoot, "data", "eval");
 
 		const files = fs
 			.readdirSync(base, { withFileTypes: true })

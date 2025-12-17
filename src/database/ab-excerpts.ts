@@ -58,8 +58,7 @@ function pickParagraphsFromText(text: string) {
 function loadBestChapterFiles(): BestChapterFile[] {
 	try {
 		const projectRoot = getProjectRootDir();
-		const base = path.resolve(projectRoot, "..");
-		const dir = path.join(base, "best_chapters");
+		const dir = path.join(projectRoot, "data", "best_chapters");
 		if (!fs.existsSync(dir)) return [];
 
 		const entries = fs.readdirSync(dir, { withFileTypes: true });

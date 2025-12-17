@@ -73,7 +73,7 @@ export function getXuxieChapters(): XuxieChapter[] {
 
 	try {
 		const projectRoot = getProjectRootDir();
-		const base = path.resolve(projectRoot, "..");
+		const base = path.join(projectRoot, "data", "xuxie");
 		if (!fs.existsSync(base)) {
 			_cache = [];
 			return _cache;
