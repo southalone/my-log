@@ -4,11 +4,10 @@ published: 2025-12-15
 description: ''
 image: ''
 tags: [llm]
-category: '归档'
+category: '文章'
 draft: false 
 lang: ''
 ---
-# 《红楼梦》续写模型评测报告
 
 ## 总体概览
 
@@ -30,6 +29,335 @@ lang: ''
 | qwen-max | 4.50 | 7.45 | 3.10 | 40 |
 | grok-4.1 | 3.52 | 5.20 | 1.75 | 40 |
 | claude-haiku-4-5-20251001 | 2.36 | 3.40 | 0.60 | 40 |
+
+## 读者盲测投票：A/B 匿名续写对比（投票后揭晓模型）
+
+为减少“先入为主”的模型偏见，补充一个**读者盲测**：我从不同模型的续写里各截取一段（长度尽量一致），做匿名化处理，仅以 **“A 段 / B 段”** 展示。欢迎你在评论区投票：
+
+- **问题 1**：你觉得哪一段**写得更好**？（A / B / 难分高下）
+- **问题 2**：你觉得哪一段**更像《红楼梦》原文气质**？（A / B / 都不像 / 难分）
+- **可选说明**：你投票的理由（比如：语言古雅度、人物口吻、意象与节奏、叙事“冷眼旁观”程度、是否出现现代语感等）
+
+> 说明：以下文字仅作盲测对比展示；已隐去模型名与回目等信息。你需要先完成选择，页面才会显示“对应模型揭晓”（纯前端交互）。
+
+<div class="ab-compare-grid" data-blindvote-id="report-ab-1" role="group" aria-label="A/B 匿名续写对比（点击选择）">
+  <section class="ab-compare-card" data-choice="A" tabindex="0" aria-label="A 段（匿名，点击选择）">
+    <div class="ab-compare-head">
+      <div class="ab-compare-title">A 段（匿名）</div>
+      <div class="ab-compare-badges">
+        <span class="ab-badge ab-badge-q1" hidden>问题 1 已选</span>
+        <span class="ab-badge ab-badge-q2" hidden>问题 2 已选</span>
+      </div>
+    </div>
+    <blockquote class="ab-compare-quote" data-slot="ab-text-a">（正在随机抽取对比段落……）</blockquote>
+  </section>
+  <section class="ab-compare-card" data-choice="B" tabindex="0" aria-label="B 段（匿名，点击选择）">
+    <div class="ab-compare-head">
+      <div class="ab-compare-title">B 段（匿名）</div>
+      <div class="ab-compare-badges">
+        <span class="ab-badge ab-badge-q1" hidden>问题 1 已选</span>
+        <span class="ab-badge ab-badge-q2" hidden>问题 2 已选</span>
+      </div>
+    </div>
+    <blockquote class="ab-compare-quote" data-slot="ab-text-b">（正在随机抽取对比段落……）</blockquote>
+  </section>
+</div>
+
+<div class="blindvote" data-blindvote-id="report-ab-1">
+  <div class="blindvote__title">点击上方 A/B 文本块完成投票</div>
+  <div class="blindvote__hint">提示：投票只保存在你的浏览器（localStorage），不上传服务器。</div>
+
+  <div class="blindvote__status" aria-live="polite">
+    <div class="blindvote__status-row"><strong>问题 1</strong>（写得更好）：<span data-slot="q1">未选择</span></div>
+    <div class="blindvote__status-row"><strong>问题 2</strong>（更像红楼梦）：<span data-slot="q2">未选择</span></div>
+    <div class="blindvote__howto">操作：先点一次 A/B 选择问题 1，再点一次 A/B 选择问题 2（都选完会自动揭晓）。要重来点 <a href="javascript:void(0)" data-action="reset">重置</a>。</div>
+  </div>
+
+  <div class="blindvote__reveal" hidden aria-live="polite"></div>
+</div>
+
+<style>
+.ab-compare-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem;margin:1rem 0}
+.ab-compare-card{border:1px solid var(--line-divider);border-radius:.75rem;padding:.8rem .9rem;background:color-mix(in oklab, var(--card-bg, transparent) 80%, transparent);cursor:pointer;transition:transform .06s ease,border-color .15s ease,background-color .15s ease,box-shadow .15s ease}
+.ab-compare-card:hover{border-color:color-mix(in oklab, var(--primary, currentColor) 50%, var(--line-divider));box-shadow:0 0 0 3px color-mix(in oklab, var(--primary, currentColor) 18%, transparent)}
+.ab-compare-card:active{transform:scale(.995)}
+.ab-compare-card:focus-visible{outline:3px solid color-mix(in oklab, var(--primary, currentColor) 35%, transparent);outline-offset:2px}
+.ab-compare-head{display:flex;align-items:flex-start;justify-content:space-between;gap:.75rem;margin-bottom:.5rem}
+.ab-compare-title{font-weight:700}
+.ab-compare-badges{display:flex;gap:.35rem;flex-wrap:wrap;justify-content:flex-end}
+.ab-badge{font-size:.82em;line-height:1;border:1px solid var(--line-divider);border-radius:999px;padding:.22rem .45rem;opacity:.9}
+.ab-compare-card.is-picked-q1{border-color:color-mix(in oklab, var(--primary, currentColor) 65%, var(--line-divider))}
+.ab-compare-card.is-picked-q2{box-shadow:0 0 0 3px color-mix(in oklab, var(--primary, currentColor) 22%, transparent)}
+.ab-compare-quote{margin:0;border-left:4px solid color-mix(in oklab, var(--primary, currentColor) 50%, var(--line-divider));padding-left:.75rem;opacity:.95}
+@media (max-width: 860px){.ab-compare-grid{grid-template-columns:1fr}}
+
+.blindvote{border:1px solid var(--line-divider);border-radius:0.75rem;padding:0.9rem 1rem;margin:1rem 0;background:color-mix(in oklab, var(--card-bg, transparent) 80%, transparent)}
+.blindvote__title{font-weight:700;margin-bottom:0.15rem}
+.blindvote__hint{opacity:.75;font-size:.95em;margin-bottom:.75rem}
+.blindvote__status{border:1px dashed var(--line-divider);border-radius:0.6rem;padding:.65rem .75rem}
+.blindvote__status-row{margin:.15rem 0}
+.blindvote__howto{opacity:.8;margin-top:.5rem}
+.blindvote__reveal{margin-top:.75rem;padding:.75rem;border-radius:.6rem;border:1px solid var(--line-divider);background:color-mix(in oklab, var(--card-bg, transparent) 90%, transparent);white-space:pre-wrap}
+</style>
+
+<script>
+(function () {
+  const KEY_PREFIX = "blindvote:";
+  // 段落库由页面注入（来自 /database 栏目的数据）。
+  // @ts-ignore
+  const CANDIDATES = Array.isArray(window.__AB_EXCERPTS__) ? window.__AB_EXCERPTS__ : [];
+
+  function b64ToText(b64) {
+    try {
+      return decodeURIComponent(escape(atob(b64)));
+    } catch {
+      return atob(b64);
+    }
+  }
+
+  function randInt(max) {
+    // 尽量用加密随机，失败再回退
+    try {
+      const buf = new Uint32Array(1);
+      crypto.getRandomValues(buf);
+      return buf[0] % max;
+    } catch {
+      return Math.floor(Math.random() * max);
+    }
+  }
+
+  function pickTwoDistinct(n) {
+    if (n < 2) return null;
+    const i = randInt(n);
+    let j = randInt(n - 1);
+    if (j >= i) j += 1;
+    return [i, j];
+  }
+
+  function pickTwoDistinctDifferentModel(items) {
+    if (!Array.isArray(items) || items.length < 2) return null;
+    // 尝试多次，确保抽到不同模型；实在不行再退化为不约束
+    for (let attempt = 0; attempt < 64; attempt++) {
+      const picked = pickTwoDistinct(items.length);
+      if (!picked) return null;
+      const a = items[picked[0]];
+      const b = items[picked[1]];
+      if (a && b && a.m && b.m && a.m !== b.m) return picked;
+    }
+    return pickTwoDistinct(items.length);
+  }
+
+  function initBlindVote(root) {
+    if (!root) return;
+    const id = root.getAttribute("data-blindvote-id");
+    if (!id) return;
+
+    const compareGrid = document.querySelector('.ab-compare-grid[data-blindvote-id="' + id + '"]');
+    const cards = compareGrid ? Array.from(compareGrid.querySelectorAll(".ab-compare-card")) : [];
+    const resetBtn = root.querySelector('[data-action="reset"]');
+    const revealBox = root.querySelector(".blindvote__reveal");
+    const q1Slot = root.querySelector('[data-slot="q1"]');
+    const q2Slot = root.querySelector('[data-slot="q2"]');
+    const aText = compareGrid ? compareGrid.querySelector('[data-slot="ab-text-a"]') : null;
+    const bText = compareGrid ? compareGrid.querySelector('[data-slot="ab-text-b"]') : null;
+    if (!resetBtn || !revealBox || !q1Slot || !q2Slot || cards.length !== 2 || !aText || !bText) return;
+
+    const storageKey = KEY_PREFIX + id;
+    const pairKey = storageKey + ":pair";
+    let currentPair = null;
+
+    function choiceLabel(x) {
+      if (x === "A") return "A 段";
+      if (x === "B") return "B 段";
+      return "未选择";
+    }
+
+    function indexByKey(k) {
+      for (let i = 0; i < CANDIDATES.length; i++) {
+        if (CANDIDATES[i].k === k) return i;
+      }
+      return -1;
+    }
+
+    function saveState(state) {
+      try { localStorage.setItem(storageKey, JSON.stringify(state)); } catch {}
+    }
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(storageKey);
+        return raw ? JSON.parse(raw) : null;
+      } catch {
+        return null;
+      }
+    }
+
+    function savePair(pair) {
+      try { localStorage.setItem(pairKey, JSON.stringify(pair)); } catch {}
+    }
+
+    function loadPair() {
+      try {
+        const raw = localStorage.getItem(pairKey);
+        return raw ? JSON.parse(raw) : null;
+      } catch {
+        return null;
+      }
+    }
+
+    function isPairValid(pair) {
+      if (!pair || typeof pair.a !== "string" || typeof pair.b !== "string" || pair.a === pair.b) return false;
+      const ai = indexByKey(pair.a);
+      const bi = indexByKey(pair.b);
+      if (ai < 0 || bi < 0) return false;
+      const am = CANDIDATES[ai]?.m;
+      const bm = CANDIDATES[bi]?.m;
+      return Boolean(am && bm && am !== bm);
+    }
+
+    function makeFreshPair() {
+      const picked = pickTwoDistinctDifferentModel(CANDIDATES);
+      if (!picked) return null;
+      return { a: CANDIDATES[picked[0]].k, b: CANDIDATES[picked[1]].k };
+    }
+
+    // 获取“当前题面”的 A/B：
+    // - 若用户已开始作答（q1/q2/revealed），则必须固定题面（从 localStorage 恢复/保存）。
+    // - 若用户尚未作答，则每次页面初始化都重新抽取（刷新即变化），且不写入 localStorage。
+    function ensureCurrentPair(shouldPersist) {
+      if (currentPair && isPairValid(currentPair)) return currentPair;
+
+      if (shouldPersist) {
+        const stored = loadPair();
+        if (isPairValid(stored)) {
+          currentPair = stored;
+          return currentPair;
+        }
+      }
+
+      const fresh = makeFreshPair();
+      if (!fresh) return null;
+      currentPair = fresh;
+      if (shouldPersist) savePair(currentPair);
+      return currentPair;
+    }
+
+    function renderPair(pair) {
+      const ai = indexByKey(pair.a);
+      const bi = indexByKey(pair.b);
+      if (ai < 0 || bi < 0) return;
+      aText.textContent = CANDIDATES[ai].t;
+      bText.textContent = CANDIDATES[bi].t;
+    }
+
+    function updateUI() {
+      const saved = loadState() || {};
+      const a1 = saved.q1 || null;
+      const a2 = saved.q2 || null;
+
+      q1Slot.textContent = choiceLabel(a1);
+      q2Slot.textContent = choiceLabel(a2);
+
+      for (const card of cards) {
+        const v = card.getAttribute("data-choice");
+        const badgeQ1 = card.querySelector(".ab-badge-q1");
+        const badgeQ2 = card.querySelector(".ab-badge-q2");
+        const isQ1 = v && a1 === v;
+        const isQ2 = v && a2 === v;
+
+        card.classList.toggle("is-picked-q1", Boolean(isQ1));
+        card.classList.toggle("is-picked-q2", Boolean(isQ2));
+
+        if (badgeQ1) badgeQ1.hidden = !isQ1;
+        if (badgeQ2) badgeQ2.hidden = !isQ2;
+      }
+    }
+
+    function reveal() {
+      const saved = loadState() || {};
+      const a1 = saved.q1;
+      const a2 = saved.q2;
+      if (!a1 || !a2) return;
+      // 进入揭晓时需要固定题面
+      const pair = ensureCurrentPair(true);
+      if (!pair) return;
+      const ai = indexByKey(pair.a);
+      const bi = indexByKey(pair.b);
+      if (ai < 0 || bi < 0) return;
+      // 轻度“防偷看”：揭晓文本运行时才拼出来
+      const revealText = "A 段：" + CANDIDATES[ai].m + "\n" + "B 段：" + CANDIDATES[bi].m;
+      const text = "你的选择：\n- 问题 1：" + a1 + "\n- 问题 2：" + a2 + "\n\n对应模型揭晓：\n" + revealText;
+      revealBox.textContent = text;
+      revealBox.hidden = false;
+      saveState({ q1: a1, q2: a2, revealed: true });
+    }
+
+    function reset() {
+      revealBox.hidden = true;
+      revealBox.textContent = "";
+      try { localStorage.removeItem(storageKey); } catch {}
+      try { localStorage.removeItem(pairKey); } catch {}
+      currentPair = null;
+      const pair = ensureCurrentPair(false);
+      if (pair) renderPair(pair);
+      updateUI();
+    }
+
+    // 恢复状态
+    const savedAtBoot = loadState() || {};
+    const hasStarted = Boolean(savedAtBoot.q1 || savedAtBoot.q2 || savedAtBoot.revealed);
+    const pair = ensureCurrentPair(hasStarted);
+    if (pair) renderPair(pair);
+
+    const saved = savedAtBoot;
+    updateUI();
+    if (saved?.revealed) reveal();
+
+    function pick(choice) {
+      const cur = loadState() || {};
+      const next = { q1: cur.q1 || null, q2: cur.q2 || null, revealed: false };
+      // 一旦开始作答，就固定当前题面（避免刷新/切页题面变化导致混乱）
+      ensureCurrentPair(true);
+      if (!next.q1) {
+        next.q1 = choice;
+      } else if (!next.q2) {
+        next.q2 = choice;
+      } else {
+        // 两题都选过：默认更新“问题 2”为最新一次点击，方便改票
+        next.q2 = choice;
+      }
+      saveState(next);
+      updateUI();
+      if (next.q1 && next.q2) reveal();
+    }
+
+    for (const card of cards) {
+      card.addEventListener("click", () => pick(card.getAttribute("data-choice")));
+      card.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") {
+          e.preventDefault();
+          pick(card.getAttribute("data-choice"));
+        }
+      });
+    }
+
+    resetBtn.addEventListener("click", reset);
+  }
+
+  function boot() {
+    document.querySelectorAll(".blindvote[data-blindvote-id]").forEach(initBlindVote);
+  }
+
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", boot, { once: true });
+  } else {
+    boot();
+  }
+
+  // swup 页面切换后重新挂载
+  document.addEventListener("swup:contentReplaced", boot);
+})();
+</script>
 
 
 ## 分数最高章节全文

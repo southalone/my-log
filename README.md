@@ -1,99 +1,147 @@
-# 🍥Fuwari  
-![Node.js >= 20](https://img.shields.io/badge/node.js-%3E%3D20-brightgreen) 
-![pnpm >= 9](https://img.shields.io/badge/pnpm-%3E%3D9-blue) 
-[![DeepWiki](https://img.shields.io/badge/DeepWiki-saicaca%2Ffuwari-blue.svg?logo=data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACwAAAAyCAYAAAAnWDnqAAAAAXNSR0IArs4c6QAAA05JREFUaEPtmUtyEzEQhtWTQyQLHNak2AB7ZnyXZMEjXMGeK/AIi+QuHrMnbChYY7MIh8g01fJoopFb0uhhEqqcbWTp06/uv1saEDv4O3n3dV60RfP947Mm9/SQc0ICFQgzfc4CYZoTPAswgSJCCUJUnAAoRHOAUOcATwbmVLWdGoH//PB8mnKqScAhsD0kYP3j/Yt5LPQe2KvcXmGvRHcDnpxfL2zOYJ1mFwrryWTz0advv1Ut4CJgf5uhDuDj5eUcAUoahrdY/56ebRWeraTjMt/00Sh3UDtjgHtQNHwcRGOC98BJEAEymycmYcWwOprTgcB6VZ5JK5TAJ+fXGLBm3FDAmn6oPPjR4rKCAoJCal2eAiQp2x0vxTPB3ALO2CRkwmDy5WohzBDwSEFKRwPbknEggCPB/imwrycgxX2NzoMCHhPkDwqYMr9tRcP5qNrMZHkVnOjRMWwLCcr8ohBVb1OMjxLwGCvjTikrsBOiA6fNyCrm8V1rP93iVPpwaE+gO0SsWmPiXB+jikdf6SizrT5qKasx5j8ABbHpFTx+vFXp9EnYQmLx02h1QTTrl6eDqxLnGjporxl3NL3agEvXdT0WmEost648sQOYAeJS9Q7bfUVoMGnjo4AZdUMQku50McDcMWcBPvr0SzbTAFDfvJqwLzgxwATnCgnp4wDl6Aa+Ax283gghmj+vj7feE2KBBRMW3FzOpLOADl0Isb5587h/U4gGvkt5v60Z1VLG8BhYjbzRwyQZemwAd6cCR5/XFWLYZRIMpX39AR0tjaGGiGzLVyhse5C9RKC6ai42ppWPKiBagOvaYk8lO7DajerabOZP46Lby5wKjw1HCRx7p9sVMOWGzb/vA1hwiWc6jm3MvQDTogQkiqIhJV0nBQBTU+3okKCFDy9WwferkHjtxib7t3xIUQtHxnIwtx4mpg26/HfwVNVDb4oI9RHmx5WGelRVlrtiw43zboCLaxv46AZeB3IlTkwouebTr1y2NjSpHz68WNFjHvupy3q8TFn3Hos2IAk4Ju5dCo8B3wP7VPr/FGaKiG+T+v+TQqIrOqMTL1VdWV1DdmcbO8KXBz6esmYWYKPwDL5b5FA1a0hwapHiom0r/cKaoqr+27/XcrS5UwSMbQAAAABJRU5ErkJggg==)](https://deepwiki.com/saicaca/fuwari)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsaicaca%2Ffuwari.svg?type=shield&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsaicaca%2Ffuwari?ref=badge_shield&issueType=license)
+# my-log（基于 Astro 的静态博客）
 
-A static blog template built with [Astro](https://astro.build).
+本项目是一个基于 **Astro + Tailwind + Svelte + Swup** 的静态博客站点。内容主要放在 `src/content/`，页面路由在 `src/pages/`，站点配置在 `src/config.ts` 与 `astro.config.mjs`。
 
-[**🖥️ Live Demo (Vercel)**](https://fuwari.vercel.app)
+这份 README 面向“维护/二次开发”，说明每个模块在哪、怎么改，以及 RSS/robots/sitemap/搜索等“接口”入口在哪里。
 
-![Preview Image](https://raw.githubusercontent.com/saicaca/resource/main/fuwari/home.png)
+## 快速开始
 
-🌏 README in
-[**中文**](https://github.com/saicaca/fuwari/blob/main/docs/README.zh-CN.md) /
-[**日本語**](https://github.com/saicaca/fuwari/blob/main/docs/README.ja.md) /
-[**한국어**](https://github.com/saicaca/fuwari/blob/main/docs/README.ko.md) /
-[**Español**](https://github.com/saicaca/fuwari/blob/main/docs/README.es.md) /
-[**ไทย**](https://github.com/saicaca/fuwari/blob/main/docs/README.th.md) /
-[**Tiếng Việt**](https://github.com/saicaca/fuwari/blob/main/docs/README.vi.md) /
-[**Bahasa Indonesia**](https://github.com/saicaca/fuwari/blob/main/docs/README.id.md) (Provided by the community and may not always be up-to-date)
+### 环境要求
 
-## ✨ Features
+- **Node.js**：建议 `>= 20`
+- **pnpm**：建议 `>= 9`（本项目强制使用 pnpm）
 
-- [x] Built with [Astro](https://astro.build) and [Tailwind CSS](https://tailwindcss.com)
-- [x] Smooth animations and page transitions
-- [x] Light / dark mode
-- [x] Customizable theme colors & banner
-- [x] Responsive design
-- [x] Search functionality with [Pagefind](https://pagefind.app/)
-- [x] [Markdown extended features](https://github.com/saicaca/fuwari?tab=readme-ov-file#-markdown-extended-syntax)
-- [x] Table of contents
-- [x] RSS feed
+### 常用命令（在项目根目录执行）
 
-## 🚀 Getting Started
+- **安装依赖**：`pnpm install`
+- **本地开发**：`pnpm dev`（默认 `http://localhost:4321`）
+- **构建**：`pnpm build`（输出到 `dist/`，并运行 Pagefind 建索引）
+- **预览构建产物**：`pnpm preview`
+- **类型/规则检查**：`pnpm check` 或 `pnpm type-check`
+- **格式化/修复**：`pnpm format` / `pnpm lint`
+- **新建文章**：`pnpm new-post <filename>`（生成到 `src/content/posts/`）
 
-1. Create your blog repository:
-    - [Generate a new repository](https://github.com/saicaca/fuwari/generate) from this template or fork this repository.
-    - Or run one of the following commands:
-       ```sh
-       npm create fuwari@latest
-       yarn create fuwari
-       pnpm create fuwari@latest
-       bun create fuwari@latest
-       deno run -A npm:create-fuwari@latest
-       ```
-2. To edit your blog locally, clone your repository, run `pnpm install` to install dependencies.
-    - Install [pnpm](https://pnpm.io) `npm install -g pnpm` if you haven't.
-3. Edit the config file `src/config.ts` to customize your blog.
-4. Run `pnpm new-post <filename>` to create a new post and edit it in `src/content/posts/`.
-5. Deploy your blog to Vercel, Netlify, GitHub Pages, etc. following [the guides](https://docs.astro.build/en/guides/deploy/). You need to edit the site configuration in `astro.config.mjs` before deployment.
+## 项目结构地图（最常改的都在这里）
 
-## 📝 Frontmatter of Posts
+- **站点配置**：`src/config.ts`
+  - **站点标题/语言/主题色**：`siteConfig`
+  - **顶栏导航**：`navBarConfig`（例如“数据库”入口就加在这里）
+  - **个人资料/头像/外链**：`profileConfig`
+- **Astro 全局配置**：`astro.config.mjs`
+  - **站点地址/部署 basePath**：`site` / `base`
+  - **Markdown/rehype/remark 插件**：都在此注册
+  - **Sitemap/Swup/Expressive Code** 等集成也在这里
+- **内容（文章/页面原文）**：`src/content/`
+  - **文章**：`src/content/posts/*.md`
+  - **站点说明页（about 等）**：`src/content/spec/*.md`
+  - **内容 schema**：`src/content/config.ts`（Frontmatter 字段校验）
+- **页面路由（“接口”也在这里）**：`src/pages/`
+  - **文章详情页**：`src/pages/posts/[...slug].astro`
+  - **分页首页/列表**：`src/pages/[...page].astro`
+  - **归档**：`src/pages/archive.astro`
+  - **关于**：`src/pages/about.astro`
+  - **数据库页面**：`src/pages/database.astro`（本项目新增）
+  - **RSS 接口**：`src/pages/rss.xml.ts`
+  - **robots.txt 接口**：`src/pages/robots.txt.ts`
+- **组件**：`src/components/`
+  - **Markdown 容器（含复制按钮脚本）**：`src/components/misc/Markdown.astro`
+  - **导航栏**：`src/components/Navbar.astro`
+  - **搜索面板**：`src/components/Search.svelte`
+  - **侧边栏/目录/标签/分类**：`src/components/widget/*`
+- **工具函数**：`src/utils/`
+  - **文章读取/排序/上一页下一页**：`src/utils/content-utils.ts`
+  - **URL 拼接（会处理 basePath）**：`src/utils/url-utils.ts`
+  - **日期格式**：`src/utils/date-utils.ts`
+  - **主题设置（亮暗色/色相）**：`src/utils/setting-utils.ts`
+- **样式**：`src/styles/`（主样式、markdown、滚动条、过渡等）
+- **静态资源**：`public/`（如图表 `public/charts/*`）
+
+## 写文章 / 改内容
+
+### 新建文章
+
+1. 执行：`pnpm new-post my-article`
+2. 编辑生成的文件：`src/content/posts/my-article.md`
+
+### 文章 Frontmatter（字段来自 `src/content/config.ts`）
 
 ```yaml
 ---
-title: My First Blog Post
-published: 2023-09-09
-description: This is the first post of my new Astro blog.
-image: ./cover.jpg
-tags: [Foo, Bar]
-category: Front-end
+title: 标题
+published: 2025-12-15
+updated: 2025-12-16
+description: ''
+image: ''
+tags: [llm]
+category: '归档'
 draft: false
-lang: jp      # Set only if the post's language differs from the site's language in `config.ts`
+lang: '' # 仅在文章语言与站点默认语言不同才需要写
 ---
 ```
 
-## 🧩 Markdown Extended Syntax
+### 草稿与发布
 
-In addition to Astro's default support for [GitHub Flavored Markdown](https://github.github.com/gfm/), several extra Markdown features are included:
+- 生产环境（`pnpm build`）会自动隐藏 `draft: true` 的文章（逻辑在 `src/utils/content-utils.ts`）
+- 本地开发默认会显示全部文章（方便预览草稿）
 
-- Admonitions ([Preview and Usage](https://fuwari.vercel.app/posts/markdown-extended/#admonitions))
-- GitHub repository cards ([Preview and Usage](https://fuwari.vercel.app/posts/markdown-extended/#github-repository-cards))
-- Enhanced code blocks with Expressive Code ([Preview](https://fuwari.vercel.app/posts/expressive-code/) / [Docs](https://expressive-code.com/))
+## “接口”都在哪里（RSS / robots / sitemap / 搜索）
 
-## ⚡ Commands
+- **RSS**：`src/pages/rss.xml.ts`
+  - 使用 `@astrojs/rss` 生成 `rss.xml`
+  - 内容来源：`getSortedPosts()`（`src/utils/content-utils.ts`）
+- **robots.txt**：`src/pages/robots.txt.ts`
+  - 会把 sitemap 链接写入 robots（依赖 `import.meta.env.SITE`）
+- **sitemap**：由 `@astrojs/sitemap` 在构建时生成（配置在 `astro.config.mjs`）
+- **站内搜索（Pagefind）**：
+  - 构建命令：`pnpm build` 里会执行 `pagefind --site dist`
+  - Pagefind 配置：`pagefind.yml`
+  - 页面上哪些内容参与索引：`src/components/misc/Markdown.astro` 里的 `data-pagefind-body`
 
-All commands are run from the root of the project, from a terminal:
+## 数据库（Database）栏目：段落库如何维护
 
-| Command                    | Action                                              |
-|:---------------------------|:----------------------------------------------------|
-| `pnpm install`             | Installs dependencies                               |
-| `pnpm dev`                 | Starts local dev server at `localhost:4321`         |
-| `pnpm build`               | Build your production site to `./dist/`             |
-| `pnpm preview`             | Preview your build locally, before deploying        |
-| `pnpm check`               | Run checks for errors in your code                  |
-| `pnpm format`              | Format your code using Biome                        |
-| `pnpm new-post <filename>` | Create a new post                                   |
-| `pnpm astro ...`           | Run CLI commands like `astro add`, `astro check`    |
-| `pnpm astro --help`        | Get help using the Astro CLI                        |
+本项目提供了一个“数据库”栏目，用于集中存放可复用的原文/片段数据，并供页面脚本读取。
 
-## ✏️ Contributing
+- **段落库数据文件**：`src/database/ab-excerpts.ts`
+  - 结构：`{ k: string; m: string; t: string }`
+    - `k`：唯一 key
+    - `m`：模型名（用于“揭晓”）
+    - `t`：展示给读者的段落文本
+- **数据库展示页面**：`src/pages/database.astro`
+  - 路由：`/database/`
+  - 作用：把 `abExcerpts` 以表格形式展示，便于校对与维护
 
-Check out the [Contributing Guide](https://github.com/saicaca/fuwari/blob/main/CONTRIBUTING.md) for details on how to contribute to this project.
+### A/B 盲测投票（红楼梦报告那篇）
 
-## 📄 License
+- **文章文件**：`src/content/posts/report.md`
+  - A/B 两个块会从段落库里随机抽取两段
+  - 规则：
+    - 刷新会重新抽样（未作答时）
+    - 一旦开始作答，会锁定题面，避免投到一半刷新导致题目变了
+    - A/B 强制来自不同模型（`m` 不相同）
+- **段落库注入到页面**：`src/pages/posts/[...slug].astro`
+  - 对 `entry.slug === "report"` 时，会注入 `window.__AB_EXCERPTS__`
 
-This project is licensed under the MIT License.
+### 复用到其他文章（不止红楼梦）
 
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Fsaicaca%2Ffuwari.svg?type=large&issueType=license)](https://app.fossa.com/projects/git%2Bgithub.com%2Fsaicaca%2Ffuwari?ref=badge_large&issueType=license)
+如果你想在其他文章也做“随机 A/B 对比 + 先选后揭晓”，有两种做法：
+
+- **做法 A（最快）**：在目标文章的 Markdown 里复制 `report.md` 的那段 HTML/CSS/JS，然后：
+  - 改 `data-blindvote-id` 为新的唯一值
+  - 在 `src/pages/posts/[...slug].astro` 里把注入条件从 `entry.slug === "report"` 扩展为多个 slug
+- **做法 B（推荐，可维护性更好）**：把盲测组件做成独立的 Astro/Svelte 组件（例如 `src/components/BlindVote.astro`），Markdown 里只写一行指令/组件引用。需要我可以进一步帮你抽组件。
+
+## 部署相关（site/basePath）
+
+部署到 GitHub Pages / 子路径时，注意：
+
+- `astro.config.mjs`：
+  - `site`：站点根地址
+  - `base`：子路径（例如本项目是 `/my-log`）
+- 内部链接请尽量使用 `@utils/url-utils.ts` 的 `url()` 来拼接，以自动处理 basePath。
+
+## 其他说明
+
+- `dist/`：构建产物目录（通常不手改）
+- `public/`：静态资源目录（直接按路径引用）
+- `docs/`：上游模板的多语言文档（可保留或删除）
+
