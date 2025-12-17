@@ -1,11 +1,13 @@
 ---
-import MainGridLayout from "@layouts/MainGridLayout.astro";
 import Markdown from "@components/misc/Markdown.astro";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { getXuxieChapters } from "../../../database/xuxie-chapters";
 
 export async function getStaticPaths() {
 	const chapters = getXuxieChapters();
-	const models = Array.from(new Set(chapters.map((c) => c.model))).sort((a, b) => a.localeCompare(b));
+	const models = Array.from(new Set(chapters.map((c) => c.model))).sort(
+		(a, b) => a.localeCompare(b),
+	);
 	return models.map((model) => ({ params: { model }, props: { model } }));
 }
 

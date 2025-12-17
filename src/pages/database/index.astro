@@ -1,13 +1,15 @@
 ---
-import MainGridLayout from "@layouts/MainGridLayout.astro";
-import Markdown from "@components/misc/Markdown.astro";
 import DatabaseCard from "@components/DatabaseCard.astro";
-import { getXuxieChapters } from "../../database/xuxie-chapters";
-import { abExcerpts } from "../../database/ab-excerpts";
+import Markdown from "@components/misc/Markdown.astro";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { url } from "@utils/url-utils";
+import { abExcerpts } from "../../database/ab-excerpts";
+import { getXuxieChapters } from "../../database/xuxie-chapters";
 
 const chapters = getXuxieChapters();
-const models = Array.from(new Set(chapters.map((c) => c.model))).sort((a, b) => a.localeCompare(b));
+const models = Array.from(new Set(chapters.map((c) => c.model))).sort((a, b) =>
+	a.localeCompare(b),
+);
 ---
 
 <MainGridLayout title="数据库" description="项目数据入口（像文章一样浏览）">

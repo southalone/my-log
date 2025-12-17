@@ -26,7 +26,10 @@ function getProjectRootDir() {
 
 function safeReadText(filePath: string) {
 	const raw = fs.readFileSync(filePath, "utf8");
-	return raw.replace(/^\uFEFF/, "").replace(/\r\n/g, "\n").trim();
+	return raw
+		.replace(/^\uFEFF/, "")
+		.replace(/\r\n/g, "\n")
+		.trim();
 }
 
 function parseBestChapterFilename(baseName: string) {
@@ -40,7 +43,9 @@ function pickParagraphsFromText(text: string) {
 	const normalized = text.replace(/\r\n/g, "\n").trim();
 	const lines = normalized.split("\n");
 	const body =
-		lines.length > 0 && /^第\s*\d+\s*回/.test(lines[0].trim()) ? lines.slice(1).join("\n") : normalized;
+		lines.length > 0 && /^第\s*\d+\s*回/.test(lines[0].trim())
+			? lines.slice(1).join("\n")
+			: normalized;
 
 	return body
 		.split(/\n\s*\n+/)
@@ -64,7 +69,12 @@ function loadBestChapterFiles(): BestChapterFile[] {
 				const file = path.join(dir, e.name);
 				const baseName = path.basename(e.name, path.extname(e.name));
 				const meta = parseBestChapterFilename(baseName);
-				return { model: meta.model, chapter: meta.chapter, file, content: safeReadText(file) };
+				return {
+					model: meta.model,
+					chapter: meta.chapter,
+					file,
+					content: safeReadText(file),
+				};
 			});
 	} catch {
 		return [];
@@ -89,5 +99,3 @@ function buildAbExcerptsFromBestChapters(): AbExcerpt[] {
 }
 
 export const abExcerpts: AbExcerpt[] = buildAbExcerptsFromBestChapters();
-
-

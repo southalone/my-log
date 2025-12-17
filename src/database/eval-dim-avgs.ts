@@ -11,7 +11,12 @@ export type EvalDimAvgs = {
 	dims: Record<EvalDimKey, number>;
 };
 
-const DIM_KEYS: EvalDimKey[] = ["文风契合度", "人物一致性", "语言质量", "文学性"];
+const DIM_KEYS: EvalDimKey[] = [
+	"文风契合度",
+	"人物一致性",
+	"语言质量",
+	"文学性",
+];
 
 function getProjectRootDir() {
 	// my-log/src/database/eval-dim-avgs.ts -> ../../ = 项目根目录
@@ -55,10 +60,10 @@ export function getEvalDimAvgs(): EvalDimAvgs[] {
 				chapters: safeNumber(total?.["评测章节数"] ?? j?.total_chapters),
 				avg: safeNumber(total?.["加权平均分"]),
 				dims: {
-					"文风契合度": 0,
-					"人物一致性": 0,
-					"语言质量": 0,
-					"文学性": 0,
+					文风契合度: 0,
+					人物一致性: 0,
+					语言质量: 0,
+					文学性: 0,
 				},
 			};
 
@@ -76,5 +81,3 @@ export function getEvalDimAvgs(): EvalDimAvgs[] {
 		return [];
 	}
 }
-
-

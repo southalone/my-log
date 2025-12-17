@@ -30,7 +30,10 @@ function getProjectRootDir() {
 
 function safeReadText(filePath: string) {
 	const raw = fs.readFileSync(filePath, "utf8");
-	return raw.replace(/^\uFEFF/, "").replace(/\r\n/g, "\n").trim();
+	return raw
+		.replace(/^\uFEFF/, "")
+		.replace(/\r\n/g, "\n")
+		.trim();
 }
 
 function parseChapterFromFilename(fileName: string) {
@@ -53,7 +56,9 @@ function titleFromContentFirstLine(text: string) {
 function makeExcerpt(text: string) {
 	const lines = text.replace(/\r\n/g, "\n").split("\n");
 	const body =
-		lines.length > 0 && /^第\s*\d+\s*回/.test(lines[0].trim()) ? lines.slice(1).join("\n") : text;
+		lines.length > 0 && /^第\s*\d+\s*回/.test(lines[0].trim())
+			? lines.slice(1).join("\n")
+			: text;
 	const paras = body
 		.split(/\n\s*\n+/)
 		.map((x) => x.trim())
@@ -85,7 +90,9 @@ export function getXuxieChapters(): XuxieChapter[] {
 			const dir = path.join(base, dirName);
 			let files: string[] = [];
 			try {
-				files = fs.readdirSync(dir).filter((f) => f.toLowerCase().endsWith(".txt"));
+				files = fs
+					.readdirSync(dir)
+					.filter((f) => f.toLowerCase().endsWith(".txt"));
 			} catch {
 				continue;
 			}
@@ -104,7 +111,11 @@ export function getXuxieChapters(): XuxieChapter[] {
 					continue;
 				}
 
-				const title = titleFromContentFirstLine(text) || (parsed.titleFromName ? `第${parsed.chapter}回　${parsed.titleFromName}` : `第${parsed.chapter}回`);
+				const title =
+					titleFromContentFirstLine(text) ||
+					(parsed.titleFromName
+						? `第${parsed.chapter}回　${parsed.titleFromName}`
+						: `第${parsed.chapter}回`);
 				out.push({
 					model,
 					chapter: parsed.chapter,
@@ -124,5 +135,3 @@ export function getXuxieChapters(): XuxieChapter[] {
 		return _cache;
 	}
 }
-
-

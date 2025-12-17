@@ -1,14 +1,17 @@
 ---
-import MainGridLayout from "@layouts/MainGridLayout.astro";
-import Markdown from "@components/misc/Markdown.astro";
-import { getXuxieChapters } from "../../database/xuxie-chapters";
 import DatabaseCard from "@components/DatabaseCard.astro";
+import Markdown from "@components/misc/Markdown.astro";
+import MainGridLayout from "@layouts/MainGridLayout.astro";
 import { url } from "@utils/url-utils";
+import { getXuxieChapters } from "../../database/xuxie-chapters";
 
 const chapters = getXuxieChapters();
 const byModelCount = new Map<string, number>();
-for (const ch of chapters) byModelCount.set(ch.model, (byModelCount.get(ch.model) || 0) + 1);
-const models = Array.from(byModelCount.keys()).sort((a, b) => a.localeCompare(b));
+for (const ch of chapters)
+	byModelCount.set(ch.model, (byModelCount.get(ch.model) || 0) + 1);
+const models = Array.from(byModelCount.keys()).sort((a, b) =>
+	a.localeCompare(b),
+);
 ---
 
 <MainGridLayout title="红楼梦续写模型数据" description="按模型浏览（像文章一样）">

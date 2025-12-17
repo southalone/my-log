@@ -9,7 +9,13 @@ interface Props {
 	icon?: string;
 }
 
-const { title, url, description, meta, icon = "material-symbols:database-outline" } = Astro.props;
+const {
+	title,
+	url,
+	description,
+	meta,
+	icon = "material-symbols:database-outline",
+} = Astro.props;
 ---
 
 <div class="card-base w-full rounded-[var(--radius-large)] overflow-hidden relative">
