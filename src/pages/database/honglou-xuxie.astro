@@ -17,14 +17,11 @@ const models = Array.from(byModelCount.keys()).sort((a, b) =>
 <MainGridLayout title="红楼梦续写模型数据" description="按模型浏览（像文章一样）">
 	<div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
 		<div class="card-base z-10 px-6 md:px-9 py-6 relative w-full">
-			<Markdown class="mt-2">
-				<p>数据来源：项目根目录的上一级目录里的 <code>续写内容_模型名</code> 文件夹。</p>
-				<p class="opacity-80">本页只展示<strong>模型卡片</strong>（避免一次性裸露全部内容），点击模型后再进入该模型的回目列表。</p>
-			</Markdown>
 
 			{chapters.length === 0 ? (
 				<div class="mt-4 text-sm opacity-80">
-					未检测到任何 <code>续写内容_*</code> 目录或章节文件。请确认这些文件夹位于项目根目录的上一级目录中（例如：<code>../续写内容_gpt-5</code>）。
+					未检测到任何 <code>续写内容_*</code> 目录或章节文件。请确认你已把数据拷贝到仓库内：
+					<code>my-log/data/xuxie/续写内容_gpt-5</code> 等。
 				</div>
 			) : (
 				<div class="mt-6 grid grid-cols-1 gap-4">
@@ -32,7 +29,6 @@ const models = Array.from(byModelCount.keys()).sort((a, b) =>
 						<DatabaseCard
 							title={m}
 							url={url(`/database/honglou-xuxie/${m}/`)}
-							description="进入该模型的续写内容（按每回展开）"
 							meta={`${byModelCount.get(m) || 0} 回`}
 							icon="material-symbols:smart-toy-outline"
 						/>
