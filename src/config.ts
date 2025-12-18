@@ -44,6 +44,10 @@ export const navBarConfig: NavBarConfig = {
 		LinkPreset.Home,
 		LinkPreset.Archive,
 		{
+			name: "游戏测评",
+			url: "/reviews/",
+		},
+		{
 			name: "数据库",
 			url: "/database/",
 		},

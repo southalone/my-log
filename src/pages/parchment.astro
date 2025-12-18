@@ -1,0 +1,12 @@
+---
+import Layout from "../layouts/Layout.astro";
+import ParchmentRainDoc from "../components/control/ParchmentRainDoc.svelte";
+---
+
+<Layout title="羊皮纸文档" description="点击后播放音乐，羊皮纸文档向下铺开，下雨背景动态展示">
+	<div class="min-h-screen">
+		<ParchmentRainDoc client:only="svelte" />
+	</div>
+</Layout>
+
+

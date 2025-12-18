@@ -1,0 +1,27 @@
+---
+import MainGridLayout from "@layouts/MainGridLayout.astro";
+import GameReviewCard from "@components/GameReviewCard.astro";
+---
+
+<MainGridLayout title="游戏测评" description="游戏测评与互动展示">
+	<div class="flex w-full rounded-[var(--radius-large)] overflow-hidden relative min-h-32">
+		<div class="card-base z-10 px-6 md:px-9 py-6 relative w-full bg-transparent">
+			<div class="mb-5">
+				<div class="text-3xl font-extrabold tracking-wide text-90">游戏测评</div>
+				<div class="mt-1 text-75">这里汇总我的游戏测评与一些互动式页面。</div>
+			</div>
+
+			<div class="grid grid-cols-1 gap-4">
+				<GameReviewCard
+					href="/parchment/"
+					title="卷轴式羊皮纸测评页（Demo）"
+					description="点击进入后播放音乐，背景视频循环播放，文档从短到长“铺开”呈现更多内容。"
+					cover="/textures/parchment.png"
+					badge="中世纪教会文书风"
+				/>
+			</div>
+		</div>
+	</div>
+</MainGridLayout>
+
+
