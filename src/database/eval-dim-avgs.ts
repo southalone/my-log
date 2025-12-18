@@ -52,13 +52,13 @@ export function getEvalDimAvgs(): EvalDimAvgs[] {
 			const model = String(j?.model_name || "").trim();
 			if (!model) continue;
 
-			const total = j?.statistics?.["总体统计"] || {};
-			const dims = j?.statistics?.["维度分析"] || {};
+			const total = j?.statistics?.总体统计 || {};
+			const dims = j?.statistics?.维度分析 || {};
 
 			const row: EvalDimAvgs = {
 				model,
-				chapters: safeNumber(total?.["评测章节数"] ?? j?.total_chapters),
-				avg: safeNumber(total?.["加权平均分"]),
+				chapters: safeNumber(total?.评测章节数 ?? j?.total_chapters),
+				avg: safeNumber(total?.加权平均分),
 				dims: {
 					文风契合度: 0,
 					人物一致性: 0,
@@ -68,7 +68,7 @@ export function getEvalDimAvgs(): EvalDimAvgs[] {
 			};
 
 			for (const k of DIM_KEYS) {
-				row.dims[k] = safeNumber(dims?.[k]?.["平均分"]);
+				row.dims[k] = safeNumber(dims?.[k]?.平均分);
 			}
 
 			rows.push(row);

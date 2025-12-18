@@ -52,7 +52,7 @@ function pickParagraphsFromText(text: string) {
 		.map((x) => x.trim())
 		.filter(Boolean)
 		.filter((x) => x.length >= 60)
-		.map((p) => (p.length > 420 ? p.slice(0, 420) + "…" : p));
+		.map((p) => (p.length > 420 ? `${p.slice(0, 420)}…` : p));
 }
 
 function loadBestChapterFiles(): BestChapterFile[] {

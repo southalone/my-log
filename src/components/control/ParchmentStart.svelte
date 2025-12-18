@@ -79,18 +79,36 @@ onMount(() => {
 	window.addEventListener("resize", onResize);
 
 	// Swup will replace main content; keep overlay height in sync.
-	const w = window as unknown as { swup?: any };
+	const w = window as unknown as { swup?: unknown };
 	const swup = w.swup;
-	if (swup?.hooks) {
-		swup.hooks.on("content:replace", onResize);
-		swup.hooks.on("page:view", onResize);
+	if (swup && typeof swup === "object" && "hooks" in swup) {
+		const hooks = (swup as { hooks?: unknown }).hooks;
+		if (hooks && typeof hooks === "object" && "on" in hooks) {
+			(hooks as { on: (event: string, cb: () => void) => void }).on(
+				"content:replace",
+				onResize,
+			);
+			(hooks as { on: (event: string, cb: () => void) => void }).on(
+				"page:view",
+				onResize,
+			);
+		}
 	}
 
 	return () => {
 		window.removeEventListener("resize", onResize);
-		if (swup?.hooks) {
-			swup.hooks.off?.("content:replace", onResize);
-			swup.hooks.off?.("page:view", onResize);
+		if (swup && typeof swup === "object" && "hooks" in swup) {
+			const hooks = (swup as { hooks?: unknown }).hooks;
+			if (hooks && typeof hooks === "object" && "off" in hooks) {
+				(hooks as { off: (event: string, cb: () => void) => void }).off(
+					"content:replace",
+					onResize,
+				);
+				(hooks as { off: (event: string, cb: () => void) => void }).off(
+					"page:view",
+					onResize,
+				);
+			}
 		}
 	};
 });

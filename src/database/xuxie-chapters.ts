@@ -64,7 +64,7 @@ function makeExcerpt(text: string) {
 		.map((x) => x.trim())
 		.filter(Boolean);
 	const p = paras.find((x) => x.length >= 40) || paras[0] || "";
-	return p.length > 220 ? p.slice(0, 220) + "…" : p;
+	return p.length > 220 ? `${p.slice(0, 220)}…` : p;
 }
 
 export function getXuxieChapters(): XuxieChapter[] {

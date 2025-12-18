@@ -6,12 +6,10 @@ interface Props {
 	href: string;
 	title: string;
 	description: string;
-	cover?: string;
 	badge?: string;
 }
 
-const { href, title, description, cover = "/textures/parchment.png", badge = "互动特效" } =
-	Astro.props;
+const { href, title, description, badge = "游戏测评" } = Astro.props;
 ---
 
 <a
@@ -19,31 +17,23 @@ const { href, title, description, cover = "/textures/parchment.png", badge = "�
 	aria-label={title}
 	class="card-base group block w-full rounded-[var(--radius-large)] overflow-hidden relative active:scale-[0.99] transition"
 >
-	<div
-		class="absolute inset-0"
-		style={`background-image:url('${cover.startsWith("/") ? url(cover) : cover}'); background-size:100% 100%; background-position:center; background-repeat:no-repeat;`}
-	></div>
-	<div class="absolute inset-0 bg-black/10 group-hover:bg-black/15 transition"></div>
-
-	<div class="relative p-6 md:p-8">
-		<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-black/30 text-white/90 text-xs font-semibold tracking-wide">
-			<span>{badge}</span>
-		</div>
-
-		<div class="mt-4 text-2xl md:text-3xl font-extrabold tracking-wide text-[rgba(60,30,10,0.90)]">
-			{title}
+	<div class="p-6 md:p-8">
+		<div class="flex items-center justify-between gap-3">
+			<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--btn-regular-bg)] text-[var(--btn-content)] text-xs font-semibold tracking-wide">
+				<span>{badge}</span>
+			</div>
 			<Icon
 				name="material-symbols:chevron-right-rounded"
-				class="inline-block ml-1 text-[2rem] align-[-0.25rem] text-[rgba(140,95,35,0.85)] opacity-0 group-hover:opacity-100 transition"
+				class="text-[2rem] text-[var(--primary)] opacity-0 group-hover:opacity-100 transition"
 			/>
 		</div>
 
-		<div class="mt-2 max-w-[44rem] text-[rgba(60,30,10,0.70)]">
-			{description}
+		<div class="mt-4 text-2xl md:text-3xl font-extrabold tracking-wide text-90 group-hover:text-[var(--primary)] transition">
+			{title}
 		</div>
 
-		<div class="mt-6 text-sm font-semibold text-[rgba(140,95,35,0.85)]">
-			点击进入 →
+		<div class="mt-2 max-w-[44rem] text-75">
+			{description}
 		</div>
 	</div>
 </a>
