@@ -20,3 +20,16 @@ const className = Astro.props.class;
         <Tag class="onload-animation" style="animation-delay: 200ms"></Tag>
     </div>
 </div>
+
+<style>
+    /* Override Tailwind's transition when exiting - target all elements */
+    :global(body.ui-exiting) #sidebar,
+    :global(body.ui-exiting) #sidebar * {
+        transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease !important;
+    }
+    
+    /* Specifically override sidebar-sticky */
+    :global(body.ui-exiting) #sidebar-sticky {
+        transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.8s ease !important;
+    }
+</style>

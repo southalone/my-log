@@ -15,27 +15,26 @@ const { href, title, description, badge = "游戏测评" } = Astro.props;
 <a
 	href={url(href)}
 	aria-label={title}
-	class="card-base group block w-full rounded-[var(--radius-large)] overflow-hidden relative active:scale-[0.99] transition"
+	class="group block w-full rounded-[var(--radius-large)] overflow-hidden relative active:scale-[0.99] transition border border-white/10 shadow-lg hover:shadow-xl"
+	style={`background-color: #0b1016; background-image: url('${url("game-review-card-bg.png")}'); background-size: cover; background-position: center;`}
 >
 	<div class="p-6 md:p-8">
 		<div class="flex items-center justify-between gap-3">
-			<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[var(--btn-regular-bg)] text-[var(--btn-content)] text-xs font-semibold tracking-wide">
+			<div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 backdrop-blur-sm text-white/90 text-xs font-semibold tracking-wide border border-white/10">
 				<span>{badge}</span>
 			</div>
 			<Icon
 				name="material-symbols:chevron-right-rounded"
-				class="text-[2rem] text-[var(--primary)] opacity-0 group-hover:opacity-100 transition"
+				class="text-[2rem] text-white/80 opacity-0 group-hover:opacity-100 transition"
 			/>
 		</div>
 
-		<div class="mt-4 text-2xl md:text-3xl font-extrabold tracking-wide text-90 group-hover:text-[var(--primary)] transition">
+		<div class="mt-4 text-2xl md:text-3xl font-extrabold tracking-wide text-white/95 group-hover:text-white transition drop-shadow-md">
 			{title}
 		</div>
 
-		<div class="mt-2 max-w-[44rem] text-75">
+		<div class="mt-2 max-w-[44rem] text-white/70">
 			{description}
 		</div>
 	</div>
 </a>
-
-
