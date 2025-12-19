@@ -1,181 +1,181 @@
 <script lang="ts">
 import Icon from "@iconify/svelte";
-	import { onMount, tick, onDestroy } from "svelte";
+import { onDestroy, onMount, tick } from "svelte";
 
-	const AUDIO_SRC = `${import.meta.env.BASE_URL}audio/parchment.mp3`;
-	const PARCHMENT_TEX = `${import.meta.env.BASE_URL}textures/parchment.png`;
-	const BG_VIDEO = `${import.meta.env.BASE_URL}video/parchment.mp4`;
+const AUDIO_SRC = `${import.meta.env.BASE_URL}audio/parchment.mp3`;
+const PARCHMENT_TEX = `${import.meta.env.BASE_URL}textures/parchment.png`;
+const BG_VIDEO = `${import.meta.env.BASE_URL}video/parchment.mp4`;
 
-	let started = $state(false);
-	let expanded = $state(false);
-	let isNormalMode = $state(true); // Controls the visual style (normal vs parchment)
-	let exiting = $state(false); // Controls the exit animation of normal elements
+let started = $state(false);
+let expanded = $state(false);
+let isNormalMode = $state(true); // Controls the visual style (normal vs parchment)
+let exiting = $state(false); // Controls the exit animation of normal elements
 
-	let viewportH = $state(60); // collapsed height (smaller for scroll effect)
-	const collapsedH = 60;
+let viewportH = $state(60); // collapsed height (smaller for scroll effect)
+const collapsedH = 60;
 
-	let contentEl: HTMLDivElement | null = null;
-	let sceneEl: HTMLDivElement | null = null;
-	let audio: HTMLAudioElement | null = null;
-	
-	let paperLeft = $state(0);
-	let paperTop = $state(0);
+let contentEl: HTMLDivElement | null = null;
+let sceneEl: HTMLDivElement | null = null;
+let audio: HTMLAudioElement | null = null;
 
-	// Portal action to move element to body when active
-	function portal(node: HTMLElement, active: boolean) {
-		let target = document.body;
-		let originalParent = node.parentNode;
-		let placeholder = document.createComment("portal-placeholder");
-		let isMoved = false;
+let paperLeft = $state(0);
+let paperTop = $state(0);
 
-		function update(active: boolean) {
-			if (active) {
-				if (!isMoved && originalParent) {
-					originalParent.insertBefore(placeholder, node);
-					target.appendChild(node);
-					isMoved = true;
-				}
-			} else {
-				if (isMoved && placeholder.parentNode) {
-					placeholder.parentNode.insertBefore(node, placeholder);
-					placeholder.parentNode.removeChild(placeholder);
-					isMoved = false;
-				}
+// Portal action to move element to body when active
+function portal(node: HTMLElement, active: boolean) {
+	let target = document.body;
+	let originalParent = node.parentNode;
+	let placeholder = document.createComment("portal-placeholder");
+	let isMoved = false;
+
+	function update(active: boolean) {
+		if (active) {
+			if (!isMoved && originalParent) {
+				originalParent.insertBefore(placeholder, node);
+				target.appendChild(node);
+				isMoved = true;
+			}
+		} else {
+			if (isMoved && placeholder.parentNode) {
+				placeholder.parentNode.insertBefore(node, placeholder);
+				placeholder.parentNode.removeChild(placeholder);
+				isMoved = false;
 			}
 		}
+	}
 
-		update(active);
+	update(active);
 
-		return {
-			update,
-			destroy() {
-				if (isMoved && node.parentNode === target) {
-					target.removeChild(node);
-				}
+	return {
+		update,
+		destroy() {
+			if (isMoved && node.parentNode === target) {
+				target.removeChild(node);
 			}
-		};
+		},
+	};
+}
+
+function getContentHeight(): number {
+	if (!contentEl) return collapsedH;
+	return Math.max(collapsedH, contentEl.scrollHeight);
+}
+
+function syncHeight() {
+	// In normal mode (not started), we let the height be auto (or controlled by CSS)
+	// In parchment mode (started), we control it.
+	if (!started) {
+		viewportH = 0; // Not used in normal mode logic effectively, but let's see
+		return;
+	}
+	viewportH = expanded ? getContentHeight() : collapsedH;
+}
+
+async function start() {
+	if (!sceneEl) return;
+
+	// 1. Capture current position before anything moves
+	const rect = sceneEl.getBoundingClientRect();
+	paperLeft = rect.left;
+	paperTop = rect.top;
+
+	// 2. Trigger Exit Animation (Phase 1)
+	exiting = true;
+	document.body.classList.add("ui-exiting");
+
+	// Hide sidebar with fade-out effect
+	const sidebar = document.getElementById("sidebar");
+	if (sidebar) {
+		sidebar.style.transition = "opacity 0.8s ease";
+		sidebar.style.opacity = "0";
+		sidebar.style.pointerEvents = "none";
 	}
 
-	function getContentHeight(): number {
-		if (!contentEl) return collapsedH;
-		return Math.max(collapsedH, contentEl.scrollHeight);
+	// Wait for exit animation to complete (e.g., 800ms)
+	await new Promise((r) => setTimeout(r, 800));
+
+	// 3. Activate portal and switch mode (Phase 2)
+	started = true; // Portal moves element to body
+	await tick();
+
+	// Reset exit state so the new content can appear
+	exiting = false;
+	isNormalMode = false;
+
+	// Add class for parchment mode (hides UI permanently/keeps them hidden)
+	document.body.classList.remove("ui-exiting");
+	document.body.classList.add("parchment-mode-active");
+
+	// 4. Expand content (Phase 3)
+	setTimeout(() => {
+		expanded = true;
+		syncHeight();
+	}, 600); // Delay to let the scroll appear first
+
+	if (!audio) {
+		audio = new Audio(AUDIO_SRC);
+		audio.preload = "auto";
+		audio.loop = true;
+	}
+	try {
+		await audio.play();
+	} catch (e) {
+		console.warn(
+			`无法播放音频：${AUDIO_SRC}。请确认文件存在（public/audio/parchment.mp3）且由点击触发。`,
+			e,
+		);
+	}
+}
+
+function reset() {
+	// Reverse animation could be implemented here, but for now simple reset
+	started = false;
+	expanded = false;
+	isNormalMode = true;
+	exiting = false;
+	document.body.classList.remove("parchment-mode-active");
+	document.body.classList.remove("ui-exiting");
+
+	// Show sidebar again with fade-in effect
+	const sidebar = document.getElementById("sidebar");
+	if (sidebar) {
+		sidebar.style.transition = "opacity 0.8s ease";
+		sidebar.style.opacity = "1";
+		sidebar.style.pointerEvents = "";
 	}
 
-	function syncHeight() {
-		// In normal mode (not started), we let the height be auto (or controlled by CSS)
-		// In parchment mode (started), we control it.
-		if (!started) {
-			viewportH = 0; // Not used in normal mode logic effectively, but let's see
-			return;
-		}
-		viewportH = expanded ? getContentHeight() : collapsedH;
+	syncHeight();
+	if (audio) {
+		audio.pause();
+		audio.currentTime = 0;
 	}
+}
 
-	async function start() {
-		if (!sceneEl) return;
+onMount(() => {
+	syncHeight();
 
-		// 1. Capture current position before anything moves
-		const rect = sceneEl.getBoundingClientRect();
-		paperLeft = rect.left;
-		paperTop = rect.top;
-		
-		// 2. Trigger Exit Animation (Phase 1)
-		exiting = true;
-		document.body.classList.add("ui-exiting");
-		
-		// Hide sidebar with fade-out effect
-		const sidebar = document.getElementById("sidebar");
-		if (sidebar) {
-			sidebar.style.transition = "opacity 0.8s ease";
-			sidebar.style.opacity = "0";
-			sidebar.style.pointerEvents = "none";
-		}
-		
-		// Wait for exit animation to complete (e.g., 800ms)
-		await new Promise(r => setTimeout(r, 800));
-		
-		// 3. Activate portal and switch mode (Phase 2)
-		started = true; // Portal moves element to body
-		await tick();
-		
-		// Reset exit state so the new content can appear
-		exiting = false;
-		isNormalMode = false;
-		
-		// Add class for parchment mode (hides UI permanently/keeps them hidden)
-		document.body.classList.remove("ui-exiting");
-		document.body.classList.add("parchment-mode-active");
+	const onResize = () => {
+		// keep expanded height correct
+		if (!expanded) return;
+		syncHeight();
 
-		// 4. Expand content (Phase 3)
-		setTimeout(() => {
-			expanded = true;
-			syncHeight();
-		}, 600); // Delay to let the scroll appear first
+		// Update paper left position if in parchment mode
+		// Note: This is a simplification. Ideally we'd want to know where the "original" slot is.
+		// But since we are portaled, we can't easily know.
+		// However, the user asked to "keep current horizontal coordinate", which implies the coordinate at the moment of clicking.
+		// So we might not want to update it on resize, or maybe we do?
+		// For now, let's keep the initial click position as the anchor.
+	};
+	window.addEventListener("resize", onResize);
+	return () => window.removeEventListener("resize", onResize);
+});
 
-		if (!audio) {
-			audio = new Audio(AUDIO_SRC);
-			audio.preload = "auto";
-			audio.loop = true;
-		}
-		try {
-			await audio.play();
-		} catch (e) {
-			console.warn(
-				`无法播放音频：${AUDIO_SRC}。请确认文件存在（public/audio/parchment.mp3）且由点击触发。`,
-				e,
-			);
-		}
-	}
-
-	function reset() {
-		// Reverse animation could be implemented here, but for now simple reset
-		started = false;
-		expanded = false;
-		isNormalMode = true;
-		exiting = false;
+onDestroy(() => {
+	if (typeof document !== "undefined") {
 		document.body.classList.remove("parchment-mode-active");
 		document.body.classList.remove("ui-exiting");
-		
-		// Show sidebar again with fade-in effect
-		const sidebar = document.getElementById("sidebar");
-		if (sidebar) {
-			sidebar.style.transition = "opacity 0.8s ease";
-			sidebar.style.opacity = "1";
-			sidebar.style.pointerEvents = "";
-		}
-		
-		syncHeight();
-		if (audio) {
-			audio.pause();
-			audio.currentTime = 0;
-		}
 	}
-
-	onMount(() => {
-		syncHeight();
-
-		const onResize = () => {
-			// keep expanded height correct
-			if (!expanded) return;
-			syncHeight();
-			
-			// Update paper left position if in parchment mode
-			// Note: This is a simplification. Ideally we'd want to know where the "original" slot is.
-			// But since we are portaled, we can't easily know. 
-			// However, the user asked to "keep current horizontal coordinate", which implies the coordinate at the moment of clicking.
-			// So we might not want to update it on resize, or maybe we do?
-			// For now, let's keep the initial click position as the anchor.
-		};
-		window.addEventListener("resize", onResize);
-		return () => window.removeEventListener("resize", onResize);
-	});
-
-			onDestroy(() => {
-		if (typeof document !== "undefined") {
-			document.body.classList.remove("parchment-mode-active");
-			document.body.classList.remove("ui-exiting");
-		}
-	});
+});
 </script>
 
 <!-- Placeholder to prevent layout collapse when scene is portaled -->
